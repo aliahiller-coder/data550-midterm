@@ -3,6 +3,7 @@ county:
   counties_served: "Fulton"
 
 time:
-  CollectDate: 
+  CollectDate:
 
 facility:
+  site: 325
