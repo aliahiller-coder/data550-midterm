@@ -10,10 +10,10 @@ data$population_served = as.numeric(gsub(",", "", data$population_served))
 
 
 #allows config settings in yml file to run 
-config = yaml::read_yaml("config.yml")
+config <- yaml::read_yaml(here::here("config.yml"))
 
 #highlighted data point based on site number
-highlight_id = config$facility$site
+highlight_id <- config$facility$site
 
 #make scatterplot
 library(ggplot2)
