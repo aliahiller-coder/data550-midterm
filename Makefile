@@ -23,3 +23,8 @@ output/03_scatterplot2.png: code/03_scatterplot2.R output/00_load_data.rds
 .PHONY: clean
 clean:
 	rm output/*
+	
+#rule to sync R packages with renv
+.PHONY: install
+install:
+	Rscript -e 'renv::restore(prompt = FALSE)'
