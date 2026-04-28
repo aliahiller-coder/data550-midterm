@@ -1,9 +1,8 @@
 county:
-  fips: 
+  fips: 13031
 
 time:
-  CollectDate: 
+  CollectDate:
 
 facility:
-  site: 333
-  
+  site: 325

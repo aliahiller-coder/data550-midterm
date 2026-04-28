@@ -8,8 +8,12 @@ data <- readRDS(
 #convert population_served variable to numeric
 data$population_served = as.numeric(gsub(",", "", data$population_served))
 
+
+#allows config settings in yml file to run 
+config = yaml::read_yaml("config.yml")
+
 #highlighted data point based on site number
-highlight_id = params$facility$site
+highlight_id = config$facility$site
 
 #make scatterplot
 library(ggplot2)
@@ -23,7 +27,7 @@ scatterplot2 <-
   scale_color_manual(values = c("FALSE" = "black", "TRUE" = "green"))+
   geom_smooth(method = "lm", color = "pink") +
   labs(title = "Scatterplot of Population Served vs Flow Rate",
-       subtitle = paste("Highlighted Data From Site:", params$facility$site)) +
+       subtitle = paste("Highlighted Data From Site:", config$facility$site)) +
   scale_x_log10() +
   theme_bw() 
 
