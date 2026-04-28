@@ -1,0 +1,81 @@
+---
+title: 'RSV Wastewater Surveillance in Georgia'
+subtitle: 'DATA 550 Midterm Report'
+author: 'Imani Allen, Linda Bueno Cinto, Alia Hiller, McKenzie Reese'
+date: "`r format(Sys.Date(), '%b-%d-%y')`"
+output: html_document
+
+---
+```{r, setup, echo = FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = FALSE, warning = FALSE, message = FALSE
+)
+```
+
+```{r, load-data}
+here::i_am('rsv_report.Rmd')
+
+data <- readRDS(
+  file = here::here('output/00_load_data.rds')
+)
+```
+
+# __Introduction__
+
+Respiratory syncytial virus (RSV) is a common respiratory virus. It does not 
+usually cause severe illness in healthy adults and children. However, some people
+with RSV infection, especially infants younger than 6 months of age and adults who
+are older or have certain risk factors, can become very sick and may need to be hospitalized.^1^
+Wastewater monitoring can detect viruses spreading from one person to another
+within a community earlier than clinical testing and before people who are sick
+go to their doctor or hospital. It can also detect infections without symptoms.^2^
+If you see increased wastewater viral activity levels, it might indicate that there is a higher risk of infection,
+which can inform local public health response.
+
+Data from this analysis is RSV wastewater surveillance from CDC subsetted to the state of Georgia. This analysis aims to:
+
+* Provide descriptive analysis of county wastewater data
+* Examine how RSV concentration in wastewater changes over time
+* Analyze the relationship between a facility’s flow rate and the population served
+
+# __Descriptive Analysis__
+
+## Table 1
+
+Table 1 provides descriptive analysis of county wastewater data.
+
+```{r, table1}
+table1 <- readRDS(
+  file = here::here('output/01_table1.rds')
+)
+
+table1
+```
+
+
+## Figure 1
+
+Figure 1 shows changes in RSV concentration in wastewater over time.
+
+```{r, plot-data1}
+#| fig.align = "center",
+#| out.width = "600px"
+
+knitr::include_graphics(
+  here::here('output/02_scatterplot.png')
+)
+```
+
+## Figure 2
+
+Figure 2 shows the relationship between a facility’s flow rate and the population served.
+
+```{r, plot-data2}
+#| fig.align = "center",
+#| out.width = "600px"
+
+knitr::include_graphics(
+  here::here('output/03_scatterplot2.png')
+)
+```
