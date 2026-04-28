@@ -1,8 +1,8 @@
 county:
   fips: 13117
+  counties_served: "Fulton"
 
 time:
   CollectDate: 
 
 facility:
-  

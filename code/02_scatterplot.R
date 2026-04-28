@@ -1,24 +1,28 @@
 here::i_am('code/02_scatterplot.R')
 
+#loading libraries 
+library(tidyverse)
+library(readr)
+library(lubridate)
+library(yaml)
+
+# config rule 
+config <- yaml::read_yaml(here::here("config.yml"))
+
 #read dataset
 data <- readRDS(
   file = here::here("output/00_load_data.rds")
 )
 
-#loading libraries 
-library(tidyverse)
-library(readr)
-library(lubridate)
+county_selected <- config$county$counties_served
 
-#cleaned variables 
 data <- data %>%
   mutate(
     sample_collect_date = as.Date(sample_collect_date),
-    pcr_target_avg_conc = parse_number(pcr_target_avg_conc)  
-  )
-
-#created season variable to view trends in RSV concentrations
-data <- data %>%
+    pcr_target_avg_conc = parse_number(pcr_target_avg_conc),
+    counties_served = as.character(counties_served)
+  ) %>%
+  filter(counties_served == county_selected) %>%
   mutate(
     month = month(sample_collect_date, label = TRUE),
     season = case_when(
@@ -29,21 +33,23 @@ data <- data %>%
     )
   )
 
-#plotting RSV trends throughout the seasons, high and low points 
-
-scatterplot3 <- 
-  ggplot(data, aes(x = sample_collect_date, y = pcr_target_avg_conc, color = season)) +
+scatterplot3 <- ggplot(data, aes(
+  x = sample_collect_date,
+  y = pcr_target_avg_conc,
+  color = season
+)) +
   geom_point(alpha = 0.4) +
   geom_smooth(se = FALSE) +
   labs(
-    title = "Seasonal Patterns in RSV Wastewater Concentration",
+    title = paste("Seasonal Patterns in RSV Wastewater Concentration in", county_selected, "County"),
     x = "Date",
-    y = "RSV Concentration"
+    y = "RSV Concentration",
+    color = "Season"
   ) +
   theme_minimal()
 
 ggsave(
-  file =  here::here("output/02_scatterplot.png"),
+  file = here::here("output/02_scatterplot.png"),
   plot = scatterplot3,
   device = "png"
 )
