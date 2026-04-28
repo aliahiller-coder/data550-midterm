@@ -3,6 +3,7 @@ library(gtsummary)
 library(yaml)
 library(here)
 
+here::i_am("code/01_table1.R")
 
 # Load config
 config <- read_yaml(here::here("config.yml"))
